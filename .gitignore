@@ -1,0 +1,138 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/fullcode/
+fullcode/*
+/fullcode
+
+/build
+
+# ── Built outputs ─────────────────────────────────────────────────────────────
+/build
+app/build
+*/build
+
+# ── Gradle ────────────────────────────────────────────────────────────────────
+.gradle
+gradle-wrapper.jar
+local.properties
+
+# ── Android Studio / IntelliJ ─────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ── Keystore / Signing (never commit these) ───────────────────────────────────
+*.jks
+*.keystore
+keystore.properties
+
+# ── OS noise ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Python / Chaquopy ─────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── Keep lib/ folder (your .whl files) ───────────────────────────────────────
+# lib/ is intentionally NOT ignored — .whl files are tracked so
+# anyone who clones can build and run immediately with no extra steps.
+!lib/
+!lib/**
+
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+**/.idea/
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# ===== Gradle & Build =====
+
+.gradle/
+build/
+*/build/
+
+# ===== Local config =====
+
+local.properties
+
+# ===== IDE (Android Studio / IntelliJ) =====
+
+.idea/
+*.iml
+
+# ===== OS files =====
+
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+
+*.log
+
+# ===== Keystore / sensitive =====
+
+*.jks
+*.keystore
+
+# ===== Android generated =====
+
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ===== Node (if any web stuff) =====
+
+node_modules/
+
+# ===== Python cache (if any tooling used) =====
+
+**pycache**/
+*.pyc
+
+# ===== KEEP IMPORTANT FILES =====
+
+# Do NOT ignore these:
+
+!**/stratum_jsons/
+!**/*.json
+!**/*.whl
+
+# ===== Optional: ignore APKs (uncomment if needed) =====
+
+# *.apk
+
+# *.aab
+

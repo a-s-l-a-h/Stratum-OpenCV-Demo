@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Viewfinder Layer (Raw Camera Hardware Stream via GPU) -->
+    <TextureView
+        android:id="@+id/texture_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Processed Computer Vision Output Layer -->
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <!-- Interactive Touch-to-Focus Indicator Ring -->
+    <View
+        android:id="@+id/focus_ring"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_focus_ring" />
+
+    <!-- Smooth Boot Cover (Hides hardware camera sensor warm-up) -->
+    <FrameLayout
+        android:id="@+id/boot_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0A0D14" />
+
+    <!-- Full-Screen Shutter Flash Overlay -->
+    <View
+        android:id="@+id/flash_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:alpha="0.0" />
+
+    <!-- Top Status HUD Badge (FPS + Mode Indicator) -->
+    <LinearLayout
+        android:id="@+id/hud_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/bg_hud_badge">
+
+        <!-- FPS Display -->
+        <TextView
+            android:id="@+id/txt_fps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FPS: --"
+            android:textColor="#00E5FF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_sep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  •  "
+            android:textColor="#44FFFFFF" />
+
+        <!-- Current Filter Display -->
+        <TextView
+            android:id="@+id/txt_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:textColor="#F1F5F9"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Save Toast Notification -->
+    <TextView
+        android:id="@+id/save_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="100dp"
+        android:text="✓ Saved to Gallery"
+        android:textColor="#00FFA3"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_save_toast" />
+
+    <!-- Bottom Floating Glass Dock -->
+    <LinearLayout
+        android:id="@+id/dock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/bg_dock">
+
+        <Button
+            android:id="@+id/btn_zoom_out"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="－"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_btn_glass" />
+
+        <Button
+            android:id="@+id/btn_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="⚪ Normal"
+            android:textColor="#00E5FF"
+            android:textSize="13sp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_btn_mode" />
+
+        <!-- Camera Shutter: Dual-Ring Professional Layout -->
+        <FrameLayout
+            android:id="@+id/shutter_container"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_shutter_ring">
+
+            <!-- Solid Pure White Shutter Button -->
+            <Button
+                android:id="@+id/btn_capture"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:background="@drawable/bg_shutter_btn"
+                android:text="" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="⟳ Flip"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_btn_glass" />
+
+        <Button
+            android:id="@+id/btn_zoom_in"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="＋"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:background="@drawable/bg_btn_glass" />
+    </LinearLayout>
+
+</FrameLayout>

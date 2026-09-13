@@ -1,0 +1,72 @@
+plugins {
+    alias(libs.plugins.android.application)
+    id 'com.chaquo.python'
+}
+// Ensure :stratum-runtime evaluates first so :app can read its ABIs
+evaluationDependsOn(':stratum-runtime')
+
+android {
+    namespace 'com.example.example_camera_opencv'
+    compileSdk {
+        version = release(36)
+    }
+
+    defaultConfig {
+        applicationId "com.example.example_camera_opencv"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+        // 2. Automatically inherit the exact ABIs declared in :stratum-runtime!
+        ndk {
+            def runtimeAbis = project(':stratum-runtime').android.defaultConfig.ndk.abiFilters
+            if (runtimeAbis != null && !runtimeAbis.isEmpty()) {
+                abiFilters.addAll(runtimeAbis)
+            } else {
+                abiFilters "arm64-v8a"
+            }
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.10"
+        // Place python 3.10 location here
+        buildPython("D:/Program_Files/Python/Python310/python.exe")
+
+        pip {
+            options("--find-links", "${rootDir}/libs")
+            install("stratum==0.9.0")
+            install("numpy")
+            install("opencv-python")
+        }
+    }
+}
+
+dependencies {
+    // ── Stratum Modular Library ──
+    implementation project(':stratum-runtime')
+
+    // ── App Dependencies ──
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}
