@@ -67,10 +67,10 @@ chaquopy {
 
         pip {
             // Use local .whl from libs folder
-            options("--find-links", "${project.projectDir}/libs")
+            options("--find-links", "${rootDir}/libs")
 
             // Install Stratum from local wheel
-            install("stratum==0.1.0")
+            install("stratum==0.9.0")
         }
     }
 }
