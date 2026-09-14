@@ -5,13 +5,18 @@
   Clean examples • Ready to run • Beginner friendly
 </p>
 
+
+---
+
+This example is based on project Stratum
+
+👉 **Repository:** [https://github.com/a-s-l-a-h/stratum](https://github.com/a-s-l-a-h/stratum)
+
+
 ---
 
 
-<p align="center">
-  <b>Android + Python integration using Stratum & Chaquopy</b><br/>
-  Clean examples • Ready to run • Beginner friendly
-</p>
+
 
 <div align="center">
   <table>
