@@ -1,4 +1,4 @@
-# 🚀 Stratum Android OpenCV Examples – Chaquopy + Python 3.10
+# 🚀 Stratum Android OpenCV Examples – Chaquopy + Stratum
 
 <p align="center">
   <b>Android + Python integration using Stratum & Chaquopy</b><br/>
