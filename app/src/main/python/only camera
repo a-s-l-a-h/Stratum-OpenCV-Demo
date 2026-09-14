@@ -1,0 +1,112 @@
+import stratum
+
+from stratum.android.view.TextureView import TextureView
+from stratum.android.view.Surface import Surface
+from stratum.android.graphics.SurfaceTexture import SurfaceTexture
+from stratum.android.hardware.camera2.CameraManager import CameraManager
+from stratum.android.hardware.camera2.CameraDevice import CameraDevice
+from stratum.android.hardware.camera2.CaptureRequest import CaptureRequest
+from stratum.android.hardware.camera2.CameraCaptureSession import CameraCaptureSession
+from stratum.android.os.Looper import Looper
+from stratum.android.os.Handler import Handler
+
+# Import PackageManager to check permissions safely
+from stratum.android.content.pm.PackageManager import PackageManager
+
+# Retained handles
+viewfinder = None
+camera_device = None
+capture_session = None
+handler = None
+cam_mgr = None
+current_surface = None  # Keep a strong reference so Python's GC doesn't delete it
+
+def open_camera():
+    global camera_device, cam_mgr, handler
+    activity = stratum.getActivity()
+
+    # 1. Safely check if we ACTUALLY have permission right now
+    if activity.checkSelfPermission("android.permission.CAMERA") != PackageManager.sf_get_PERMISSION_GRANTED():
+        return # Still waiting on user to click "Allow"
+
+    if handler is None:
+        handler = Handler(Looper.getMainLooper())
+
+    if cam_mgr is None:
+        raw_mgr = activity.getSystemService("camera")
+        cam_mgr = CameraManager.from_ptr(raw_mgr)
+
+    cam_ids = cam_mgr.getCameraIdList()
+    if len(cam_ids) > 0:
+        primary_camera = str(cam_ids[0])
+        # Open hardware camera
+        cam_mgr.openCamera(primary_camera, {
+            "onOpened": on_camera_opened,
+            "onDisconnected": lambda dev: None,
+            "onError": lambda dev, err: None,
+        }, handler)
+
+def on_camera_opened(device):
+    global camera_device, capture_session, current_surface
+    camera_device = CameraDevice.from_ptr(device)
+
+    # Acquire Surface from TextureView
+    st = SurfaceTexture.from_ptr(viewfinder.getSurfaceTexture())
+    st.setDefaultBufferSize(1280, 720)
+    current_surface = Surface(st)
+
+    # Build Repeating CaptureRequest (TEMPLATE_PREVIEW = 1)
+    builder = camera_device.createCaptureRequest(1)
+    builder.addTarget(current_surface)
+
+    # CONTROL_AF_MODE_CONTINUOUS_PICTURE = 4
+    builder.set(CaptureRequest.sf_get_CONTROL_AF_MODE(), 4)
+
+    def on_session_configured(session):
+        global capture_session
+        capture_session = CameraCaptureSession.from_ptr(session)
+        # Start repeating preview request
+        capture_session.setRepeatingRequest(builder.build(), None, handler)
+
+    # Create CameraCaptureSession
+    camera_device.createCaptureSession([current_surface], {
+        "onConfigured": on_session_configured,
+        "onConfigureFailed": lambda s: None,
+    }, handler)
+
+def on_surface_available(surface_texture, width, height):
+    # Try to open the camera when the view loads
+    open_camera()
+
+def onCreate():
+    global viewfinder
+    activity = stratum.getActivity()
+
+    viewfinder = TextureView(activity)
+    viewfinder.setSurfaceTextureListener({
+        "onSurfaceTextureAvailable": on_surface_available,
+        "onSurfaceTextureSizeChanged": lambda st, w, h: None,
+        "onSurfaceTextureDestroyed": lambda st: True,
+        "onSurfaceTextureUpdated": lambda st: None,
+    })
+
+    stratum.setContentView(activity, viewfinder)
+
+def onResume():
+    # Crucial Fix: When the permission dialog closes, Android calls onResume.
+    # If the TextureView is already on screen, but the camera failed to open previously, try again!
+    if viewfinder and viewfinder.isAvailable() and camera_device is None:
+        open_camera()
+
+def onPause():
+    # Always clean up hardware resources when the app goes to the background
+    global capture_session, camera_device
+    if capture_session:
+        capture_session.close()
+        capture_session = None
+    if camera_device:
+        camera_device.close()
+        camera_device = None
+
+def onDestroy():
+    onPause()

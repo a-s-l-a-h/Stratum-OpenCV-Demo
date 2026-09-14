@@ -16,39 +16,9 @@ public class Adapter_android_location_LocationListener implements android.locati
     }
 
     @Override
-    public void onFlushComplete(int arg0) {
-        StratumInvocationHandler.nativeDispatch(
-            key_, "onFlushComplete", new Object[]{ Integer.valueOf(arg0) });
-    }
-
-    @Override
     public void onLocationChanged(android.location.Location arg0) {
         StratumInvocationHandler.nativeDispatch(
             key_, "onLocationChanged", new Object[]{ arg0 });
-    }
-
-    @Override
-    public void onLocationChanged(java.util.List arg0) {
-        StratumInvocationHandler.nativeDispatch(
-            key_, "onLocationChanged", new Object[]{ arg0 });
-    }
-
-    @Override
-    public void onProviderDisabled(String arg0) {
-        StratumInvocationHandler.nativeDispatch(
-            key_, "onProviderDisabled", new Object[]{ arg0 });
-    }
-
-    @Override
-    public void onProviderEnabled(String arg0) {
-        StratumInvocationHandler.nativeDispatch(
-            key_, "onProviderEnabled", new Object[]{ arg0 });
-    }
-
-    @Override
-    public void onStatusChanged(String arg0, int arg1, android.os.Bundle arg2) {
-        StratumInvocationHandler.nativeDispatch(
-            key_, "onStatusChanged", new Object[]{ arg0, Integer.valueOf(arg1), arg2 });
     }
 
     @Override

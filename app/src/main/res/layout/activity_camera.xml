@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +19,20 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
 
+    <!-- Top Cinematic Scrim Vignette (Ensures HUD visibility in bright scenes) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_gravity="top"
+        android:background="@drawable/scrim_top" />
+
+    <!-- Bottom Cinematic Scrim Vignette (Ensures Dock visibility in bright scenes) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/scrim_bottom" />
+
     <!-- Interactive Touch-to-Focus Indicator Ring -->
     <View
         android:id="@+id/focus_ring"
@@ -31,164 +46,202 @@
         android:id="@+id/boot_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0A0D14" />
+        android:background="#090C12" />
 
     <!-- Full-Screen Shutter Flash Overlay -->
     <View
         android:id="@+id/flash_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:alpha="0.0" />
+        android:alpha="0.0"
+        android:background="#FFFFFF" />
 
-    <!-- Top Status HUD Badge (FPS + Mode Indicator) -->
+    <!-- Top Status HUD Badge (Dynamic Island / Leica Aesthetic) -->
     <LinearLayout
         android:id="@+id/hud_badge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/bg_hud_badge"
         android:gravity="center"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="@drawable/bg_hud_badge">
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp">
 
-        <!-- FPS Display -->
+        <!-- Live FPS Counter -->
         <TextView
             android:id="@+id/txt_fps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.06"
             android:text="FPS: --"
-            android:textColor="#00E5FF"
-            android:textSize="13sp"
+            android:textColor="#00F0FF"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_sep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  •  "
-            android:textColor="#44FFFFFF" />
+            android:includeFontPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="•"
+            android:textColor="#38BDF8"
+            android:textSize="10sp" />
 
-        <!-- Current Filter Display -->
+        <!-- Current Filter / Detection Mode -->
         <TextView
             android:id="@+id/txt_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.02"
             android:text="Normal"
-            android:textColor="#F1F5F9"
-            android:textSize="13sp" />
+            android:textColor="#F8FAFC"
+            android:textSize="12sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
-    <!-- Save Toast Notification -->
+    <!-- Save Toast Notification (Floating Emerald Pill) -->
     <TextView
         android:id="@+id/save_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="100dp"
-        android:text="✓ Saved to Gallery"
-        android:textColor="#00FFA3"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_marginTop="96dp"
         android:alpha="0.0"
-        android:background="@drawable/bg_save_toast" />
+        android:background="@drawable/bg_save_toast"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.03"
+        android:paddingStart="16dp"
+        android:paddingTop="7dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="7dp"
+        android:text="✓  SAVED TO GALLERY"
+        android:textColor="#00FFA3"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
-    <!-- Bottom Floating Glass Dock -->
+    <!-- Bottom Floating Glass Dock (Responsive ~330dp Footprint: Zero Clipping) -->
     <LinearLayout
         android:id="@+id/dock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/bg_dock"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:background="@drawable/bg_dock">
+        android:paddingStart="10dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="8dp">
 
+        <!-- Zoom Out Button -->
         <Button
             android:id="@+id/btn_zoom_out"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_btn_glass"
+            android:gravity="center"
+            android:includeFontPadding="false"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="0dp"
-            android:text="－"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_btn_glass" />
+            android:stateListAnimator="@null"
+            android:text="−"
+            android:textColor="#E2E8F0"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
+        <!-- AI Filter / Mode Toggle Button -->
         <Button
             android:id="@+id/btn_mode"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_btn_mode"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.02"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:stateListAnimator="@null"
             android:text="⚪ Normal"
             android:textColor="#00E5FF"
-            android:textSize="13sp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_btn_mode" />
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
-        <!-- Camera Shutter: Dual-Ring Professional Layout -->
+        <!-- Camera Shutter Container (Dual Aerospace Rings) -->
         <FrameLayout
             android:id="@+id/shutter_container"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bg_shutter_ring">
 
-            <!-- Solid Pure White Shutter Button -->
+            <!-- Pure Solid White Shutter Button -->
             <Button
                 android:id="@+id/btn_capture"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
                 android:layout_gravity="center"
+                android:background="@drawable/bg_shutter_btn"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:padding="0dp"
-                android:background="@drawable/bg_shutter_btn"
-                android:text="" />
+                android:stateListAnimator="@null"
+                android:text=""
+                app:backgroundTint="@null" />
         </FrameLayout>
 
+        <!-- Lens Switch / Flip Button -->
         <Button
             android:id="@+id/btn_switch"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_btn_glass"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.02"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:stateListAnimator="@null"
             android:text="⟳ Flip"
-            android:textColor="#FFFFFF"
-            android:textSize="13sp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_btn_glass" />
+            android:textColor="#F1F5F9"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
 
+        <!-- Zoom In Button -->
         <Button
             android:id="@+id/btn_zoom_in"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_btn_glass"
+            android:gravity="center"
+            android:includeFontPadding="false"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="0dp"
-            android:text="＋"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:background="@drawable/bg_btn_glass" />
+            android:stateListAnimator="@null"
+            android:text="+"
+            android:textColor="#E2E8F0"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
 </FrameLayout>

@@ -24,14 +24,6 @@ public class Adapter_android_view_View_OnLongClickListener implements android.vi
     }
 
     @Override
-    public boolean onLongClickUseDefaultHapticFeedback(android.view.View arg0) {
-        Object __r = StratumInvocationHandler.nativeDispatch(
-            key_, "onLongClickUseDefaultHapticFeedback", new Object[]{ arg0 });
-        if (__r == null) { return false; }
-        return (__r instanceof Boolean) ? ((Boolean) __r).booleanValue() : (__r instanceof Number && ((Number) __r).intValue() != 0);
-    }
-
-    @Override
     public String toString() {
         return "Adapter_android_view_View_OnLongClickListener[key=" + key_ + "]";
     }
