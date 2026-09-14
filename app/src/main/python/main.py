@@ -160,9 +160,9 @@ class AestheticCameraApp:
 
         self.cv_mode = 0
         self.mode_labels = [
-            "Normal (Raw)", "ORB Features", "White Edges", "Doc Scanner", "B&W Threshold", "NanoDet AI"
+            "Normal (Raw)", "ORB Features", "White Edges", "Quad Tracker", "B&W Threshold", "NanoDet AI"
         ]
-        self.mode_icons = ["⚪ Normal", "⚡ ORB", "◈ Edges", "⌗ Scan", "◐ B&W", "🎯 NanoDet"]
+        self.mode_icons = ["⚪ Normal", "⚡ ORB", "◈ Edges", "⛶ Quad", "◐ B&W", "🎯 NanoDet"]
 
         self.running = True
         self.is_switching = False
