@@ -7,6 +7,26 @@
 
 ---
 
+
+<p align="center">
+  <b>Android + Python integration using Stratum & Chaquopy</b><br/>
+  Clean examples • Ready to run • Beginner friendly
+</p>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <video src="https://github.com/user-attachments/assets/b8a2ae54-2b34-4636-9b95-27ed38a2e503" autoplay loop muted playsinline width="320"></video>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+
+
 > [!CAUTION]
 > ### ⚠️ CRITICAL COMPATIBILITY REQUIREMENTS
 > - **Python 3.10 on PC:** You **MUST** have **Python 3.10** installed on your host PC for Chaquopy to build the project.
