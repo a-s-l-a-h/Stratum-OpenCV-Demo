@@ -134,7 +134,7 @@ class SlidingFpsTracker:
             self.timestamps.clear()
 
 
-class AestheticCameraApp:
+class CameraApp:
     def __init__(self, activity):
         self.activity = activity
         self.res = activity.getResources()
@@ -1136,7 +1136,7 @@ def onCreate():
     global app
     activity = stratum.getActivity()
     try:
-        app = AestheticCameraApp(activity)
+        app = CameraApp(activity)
     except Exception:
         err_msg = f"Stratum Init Error:\n{traceback.format_exc()}"
         print(f"[FATAL] {err_msg}")
